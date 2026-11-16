@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тоха — тамагочі в Telegram, який чекає саме на тебе</title>
+<meta name="description" content="Мʼякий маленький друг у Telegram: він радіє, коли ти приходиш, сумує, коли тебе немає, і нагадує про простий щоденний затишок.">
+<meta property="og:title" content="Тоха — тамагочі в Telegram">
+<meta property="og:description" content="Маленький друг, який чекає на тебе щодня.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#EEF0FF; --paper:#FFFFFF; --ink:#3B2F5E; --soft:#6B6190;
+  --pink:#FFB9CB; --mint:#BFEBD6; --butter:#FFE8A3; --lilac:#D9D2FF;
+  --btn:#5B46C9;
+  --head:"Fredoka","Nunito",system-ui,sans-serif;
+  --body:"Nunito",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--sky);line-height:1.65;font-size:18px;
+  background-image:radial-gradient(circle at 12% 8%,var(--lilac) 0 90px,transparent 91px),radial-gradient(circle at 92% 30%,var(--mint) 0 70px,transparent 71px)}
+h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.15}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--btn);outline-offset:3px;border-radius:12px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+section{padding:72px 0}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:88vh;padding:56px 0}
+.hero h1{font-size:clamp(2.4rem,6vw,3.9rem);margin-bottom:18px}
+.hero p{color:var(--soft);max-width:30em;margin-bottom:28px}
+.btn{display:inline-block;background:var(--btn);color:#fff;text-decoration:none;font-weight:700;
+  padding:16px 30px;border-radius:999px;box-shadow:0 6px 0 #3E2FA0;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(2px);box-shadow:0 4px 0 #3E2FA0}
+.btn:active{transform:translateY(6px);box-shadow:0 0 0 #3E2FA0}
+.hint{display:block;margin-top:16px;font-size:.9rem;color:var(--soft)}
+
+/* the pet */
+.stage{display:flex;flex-direction:column;align-items:center;gap:18px}
+.bubble{position:relative;background:var(--paper);padding:14px 20px;border-radius:22px;font-weight:600;
+  text-align:center;min-height:56px;max-width:270px;box-shadow:0 6px 0 var(--lilac)}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-12px;width:22px;height:22px;background:var(--paper);
+  transform:translateX(-50%) rotate(45deg);border-radius:0 0 6px 0}
+.pet{all:unset;cursor:pointer;display:block;width:230px;height:210px;position:relative;margin-top:14px;
+  animation:bob 3.2s ease-in-out infinite}
+.pet:focus-visible{outline:3px solid var(--btn);outline-offset:8px;border-radius:50%}
+.body{position:absolute;inset:0;background:var(--pink);border-radius:52% 52% 46% 46%;box-shadow:inset -14px -16px 0 rgba(255,255,255,.28),0 14px 0 rgba(91,70,201,.12)}
+.ear{position:absolute;top:-16px;width:56px;height:56px;background:var(--pink);border-radius:50% 50% 12% 50%}
+.ear.l{left:20px;transform:rotate(-12deg)}.ear.r{right:20px;transform:rotate(102deg)}
+.eye{position:absolute;top:82px;width:20px;height:28px;background:var(--ink);border-radius:50%;animation:blink 4.6s infinite;transform-origin:center}
+.eye.l{left:62px}.eye.r{right:62px}
+.eye::after{content:"";position:absolute;top:5px;left:5px;width:7px;height:7px;background:#fff;border-radius:50%}
+.cheek{position:absolute;top:116px;width:34px;height:20px;background:#FF8FAE;border-radius:50%;opacity:.55}
+.cheek.l{left:34px}.cheek.r{right:34px}
+.mouth{position:absolute;left:50%;top:118px;width:26px;height:14px;transform:translateX(-50%);border-bottom:5px solid var(--ink);border-radius:0 0 30px 30px}
+.pet.happy{animation:hop .5s}
+.pet.happy .mouth{height:20px;background:#E5527C;border:0;border-radius:0 0 30px 30px;width:24px}
+.heart{position:absolute;pointer-events:none;font-size:26px;animation:float 1.2s forwards}
+.tapme{font-size:.9rem;color:var(--soft)}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes hop{40%{transform:translateY(-34px) scale(1.04,.96)}}
+@keyframes float{to{transform:translateY(-90px);opacity:0}}
+
+/* why */
+h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:14px}
+.lead{color:var(--soft);max-width:36em;margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{background:var(--paper);padding:26px;border-radius:28px}
+.card:nth-child(1){border-radius:28px 28px 28px 8px}
+.card:nth-child(2){border-radius:28px 28px 8px 28px}
+.card:nth-child(3){border-radius:28px 8px 28px 28px}
+.card:nth-child(4){border-radius:8px 28px 28px 28px}
+.card .em{font-size:2rem;display:grid;place-items:center;width:60px;height:60px;border-radius:50%;margin-bottom:14px}
+.card:nth-child(1) .em{background:var(--pink)}.card:nth-child(2) .em{background:var(--butter)}
+.card:nth-child(3) .em{background:var(--mint)}.card:nth-child(4) .em{background:var(--lilac)}
+.card h3{font-size:1.3rem;margin-bottom:8px}
+.card p{color:var(--soft);font-size:1rem}
+
+/* how */
+.steps{list-style:none;padding:0;display:grid;gap:16px;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:18px;align-items:center;background:var(--paper);padding:20px 24px;border-radius:999px}
+.steps li::before{content:counter(s);flex:none;width:44px;height:44px;border-radius:50%;background:var(--butter);
+  display:grid;place-items:center;font-family:var(--head);font-weight:600;font-size:1.3rem}
+.steps b{font-family:var(--head);font-weight:600}
+
+/* honest */
+.note{background:var(--butter);border-radius:36px;padding:38px;max-width:760px}
+.note p{margin-top:12px}
+
+/* final */
+.final{text-align:center}
+.final p{color:var(--soft);margin:0 auto 28px;max-width:28em}
+footer{text-align:center;padding:30px 22px 50px;color:var(--soft);font-size:.9rem}
+
+@media(max-width:760px){
+  body{font-size:17px}
+  .hero{grid-template-columns:1fr;text-align:center;min-height:0}
+  .hero p{margin-inline:auto}
+  section{padding:52px 0}
+  .steps li{border-radius:28px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<header class="wrap hero">
+  <div>
+    <h1>Маленький друг, який чекає саме на тебе</h1>
+    <p>Тоха — тамагочі в Telegram. Він радіє, коли ти приходиш, трохи сумує, коли тебе довго немає, і робить вечори теплішими. Без реєстрацій і зайвих програм: достатньо одного дотику.</p>
+    <a class="btn" href="https://t.me/tamagotchi_toxa_bot" target="_blank" rel="noopener">Познайомитись із Тохою</a>
+    <span class="hint">Безкоштовно · відкривається в Telegram</span>
+  </div>
+  <div class="stage">
+    <div class="bubble" id="say" aria-live="polite">Привіт! Я так на тебе чекав 💛</div>
+    <button class="pet" id="pet" aria-label="Погладити Тоху">
+      <span class="ear l"></span><span class="ear r"></span><span class="body"></span>
+      <span class="eye l"></span><span class="eye r"></span>
+      <span class="cheek l"></span><span class="cheek r"></span><span class="mouth"></span>
+    </button>
+    <span class="tapme">Торкнись його, щоб погладити</span>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Чому з ним трохи легше, коли самотньо</h2>
+    <p class="lead">Самотність — це не «з тобою щось не так». Це сигнал, що тобі бракує тепла й уваги. Тоха не замінить людей, але може стати мʼякою опорою щодня.</p>
+    <div class="grid">
+      <div class="card"><div class="em">🏠</div><h3>Хтось чекає вдома</h3><p>Тоха памʼятає про тебе. Приємно знати, що десь є маленька істота, для якої ти важливий.</p></div>
+      <div class="card"><div class="em">🍙</div><h3>Турбота повертає сенс дням</h3><p>Нагодувати, пограти, вкласти спати — прості дії створюють ритм і відчуття, що ти потрібен.</p></div>
+      <div class="card"><div class="em">🌤</div><h3>Маленькі радості щодня</h3><p>Кілька хвилин усмішки між справами. Не марафон і не обовʼязок, а просто приємний ритуал.</p></div>
+      <div class="card"><div class="em">💬</div><h3>Завжди під рукою</h3><p>Він живе в Telegram, де ти і так буваєш. Відкрив чат, і Тоха вже радіє тобі.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Як почати</h2>
+    <p class="lead">Це займе менше хвилини.</p>
+    <ol class="steps">
+      <li><span><b>Відкрий бота</b> за кнопкою нижче або знайди @tamagotchi_toxa_bot у Telegram.</span></li>
+      <li><span><b>Натисни «Старт»</b> і познайомся з Тохою.</span></li>
+      <li><span><b>Заходь у гості</b> щодня: погодуй, пограй і дай йому знати, що ти поруч.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="note">
+      <h2>Чесно про самотність</h2>
+      <p>Тамагочі — не терапія і не заміна живого спілкування. Але він може бути маленьким кроком: теплим ритуалом, який нагадує, що ти заслуговуєш на турботу. А якщо самотність стала надто важкою, поговори з близькою людиною або психологом. Це нормально — просити про підтримку.</p>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Тоха вже чекає</h2>
+    <p>Зазирни до нього сьогодні. Він буде дуже радий.</p>
+    <a class="btn" href="https://t.me/tamagotchi_toxa_bot" target="_blank" rel="noopener">Відкрити в Telegram</a>
+  </div>
+</section>
+</main>
+<footer>Зроблено з теплом 🐣 · @tamagotchi_toxa_bot</footer>
+
+<script>
+(function(){
+  var pet=document.getElementById('pet'),say=document.getElementById('say');
+  var lines=['Мурр, ще! 💛','Ти найкращий!','Я сьогодні думав про тебе','Дякую, що прийшов 🌷','Ти не сам, я поруч','Давай разом посидимо?','Ой, лоскотно!'];
+  var i=0;
+  pet.addEventListener('click',function(){
+    say.textContent=lines[i++%lines.length];
+    pet.classList.remove('happy');void pet.offsetWidth;pet.classList.add('happy');
+    var h=document.createElement('span');h.className='heart';h.textContent='💗';
+    h.style.left=(60+Math.random()*110)+'px';h.style.top='-10px';
+    pet.appendChild(h);setTimeout(function(){h.remove()},1200);
+  });
+})();
+</script>
+</body>
+</html>
